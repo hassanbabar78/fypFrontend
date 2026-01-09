@@ -23,7 +23,7 @@ export interface PaymentDetails {
   cardholderName: string
 }
 
-export default function PaymentForm({ planType, planPrice, onSubmit, isLoading = false }: PaymentFormProps) {
+export default function PaymentForm({ planPrice, onSubmit, isLoading = false }: PaymentFormProps) {
   const [formData, setFormData] = useState<PaymentDetails>({
     cardNumber: "",
     expiryMonth: "",

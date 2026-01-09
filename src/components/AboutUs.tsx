@@ -1,7 +1,4 @@
 
-
-"use client"
-
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { useEffect, useState, useRef } from "react"
 import { Globe, Shield, Zap } from "lucide-react"
@@ -84,8 +81,6 @@ const AboutUs = () => {
               stats.forEach((stat, index) => {
                 const targetValue = parseNumber(stat.number)
                 const duration = 2000
-                const steps = 60
-                const increment = targetValue / steps
                 let current = 0
 
                 setTimeout(() => {

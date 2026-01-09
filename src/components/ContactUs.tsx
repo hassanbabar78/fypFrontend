@@ -4,7 +4,7 @@ import type React from "react"
 
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { ArrowRight, Building, Handshake, Mail, MessageCircle, Phone, Quote } from "lucide-react"
+import { ArrowRight, Handshake, Mail, MessageCircle, Quote } from "lucide-react"
 import { useState } from "react"
 
 gsap.registerPlugin(ScrollTrigger)

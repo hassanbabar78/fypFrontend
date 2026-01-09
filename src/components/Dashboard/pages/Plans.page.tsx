@@ -44,7 +44,7 @@ export default function YourPlanSection() {
   const [planData, setPlanData] = useState<PlanData | null>(null);
   const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
   const [showPurchaseDialog, setShowPurchaseDialog] = useState(false);
-  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [, setIsProcessingPayment] = useState(false);
   const [selectedPlanForPurchase, setSelectedPlanForPurchase] = useState<{
     type: string;
     name: string;

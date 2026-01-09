@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Miniature Earth | Hologram Demo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./miniature.earth.core.js"></script>
+
+    <script>
+      if (location.protocol == "file:") {
+        alert(
+          "This demo does not work with the file protocol due to browser security restrictions."
+        );
+      }
+
+      var myearth;
+      var sprites = [];
+
+      window.addEventListener("load", function () {
+        myearth = new Earth("myearth", {
+          location: { lat: 20, lng: 20 },
+
+          light: "none",
+
+          mapImage: "./hologram-map.svg",
+          transparent: true,
+
+          autoRotate: true,
+          autoRotateSpeed: 1.2,
+          autoRotateDelay: 100,
+          autoRotateStart: 2000,
+        });
+
+        myearth.addEventListener("ready", function () {
+          this.startAutoRotate();
+
+        
+          countriesData.forEach((country) => {
+            let sprite = myearth.addSprite({
+              image: "./point-marker.svg",
+              location: { lat: country.lat, lng: country.lng },
+              scale: 0.8,
+              opacity: 1,
+              interactive: true
+            });
+
+            sprite.userData = country; // Store the country's info inside the sprite
+          });
+
+          // add 8 shine sprites
+
+          
+        });
+        myearth.addEventListener("spriteover", function (sprite) {
+          let country = sprite.userData;
+          if (country) {
+            showInfo(country);
+          }
+        });
+
+        myearth.addEventListener("spriteout", function () {
+          hideInfo();
+        });
+
+        myearth.addEventListener("click", function (event) {
+          if (!event.id || event.id == "SEA") return; // no country hit
+
+          // toggle selection
+          if (selected_countries.indexOf(event.id) != -1) {
+            // remove
+            selected_countries.splice(selected_countries.indexOf(event.id), 1);
+          } else {
+            // add
+            selected_countries.push(event.id);
+          }
+
+          setInterval(() => {
+            sprites.forEach((s) => {
+              s.scale = 0.02 + Math.random() * 0.01; // make it "pulse"
+            });
+          }, 100);
+
+          // build mapStyles CSS string like: #US, #CN, #RU { fill: green; }
+          if (selected_countries.length) {
+            myearth.mapStyles =
+              "#" + selected_countries.join(", #") + " { fill: #44cc44; }";
+
+            // show info
+            document.getElementById("info").innerHTML =
+              "Selected: " + selected_countries.join(", ");
+          } else {
+            myearth.mapStyles = "";
+
+            // show info
+            document.getElementById("info").innerHTML = "no countries selected";
+          }
+
+          // redraw map to apply new mapStyles
+          myearth.redrawMap();
+        });
+      });
+
+      function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
+      }
+
+      function pulse(index) {
+        var random_location =
+          connections[getRandomInt(0, connections.length - 1)];
+        sprites[index].location = {
+          lat: random_location[0],
+          lng: random_location[1],
+        };
+
+        sprites[index].animate("scale", 0.5, {
+          duration: 320,
+          complete: function () {
+            this.animate("scale", 0.01, {
+              duration: 320,
+              complete: function () {
+                setTimeout(function () {
+                  pulse(index);
+                }, getRandomInt(100, 400));
+              },
+            });
+          },
+        });
+      }
+
+      function showInfo(country) {
+        let tooltip = document.getElementById("tooltip");
+        tooltip.innerHTML = `
+    <strong>${country.country}</strong> (${country.flag})<br>
+    City: ${country.city}<br>
+    Total Nodes: ${country.totalNodes}
+  `;
+        tooltip.style.display = "block";
+
+        // Update position with mouse movement
+        document.addEventListener("mousemove", moveTooltip);
+      }
+
+      function hideInfo() {
+        let tooltip = document.getElementById("tooltip");
+        tooltip.style.display = "none";
+        document.removeEventListener("mousemove", moveTooltip);
+      }
+
+      function moveTooltip(e) {
+        let tooltip = document.getElementById("tooltip");
+        tooltip.style.left = e.pageX + 10 + "px";
+        tooltip.style.top = e.pageY + 10 + "px";
+      }
+
+      // locations conntected by lines and places where hologram shines appear
+
+      const countriesData = [
+        {
+          id: 1,
+          country: "United States",
+          city: "Portland",
+          region: "North America",
+          flag: "🇺🇸",
+          lat: 45.5152,
+          lng: -122.6784,
+          dataCenterId: "pfl",
+          dataCenterOwner: "Flexential",
+          replicaNodes: 0,
+          apiBoundaryNodes: 0,
+          totalNodes: 28,
+          nodeProviders: 1,
+          subnets: 0,
+        },
+        {
+          id: 2,
+          country: "Germany",
+          city: "Frankfurt",
+          region: "Europe",
+          flag: "🇩🇪",
+          lat: 50.1109,
+          lng: 8.6821,
+          dataCenterId: "fra",
+          dataCenterOwner: "Digital Realty",
+          replicaNodes: 5,
+          apiBoundaryNodes: 2,
+          totalNodes: 45,
+          nodeProviders: 3,
+          subnets: 2,
+        },
+        {
+          id: 3,
+          country: "Singapore",
+          city: "Singapore",
+          region: "Asia Pacific",
+          flag: "🇸🇬",
+          lat: 1.3521,
+          lng: 103.8198,
+          dataCenterId: "sin",
+          dataCenterOwner: "Equinix",
+          replicaNodes: 3,
+          apiBoundaryNodes: 1,
+          totalNodes: 32,
+          nodeProviders: 2,
+          subnets: 1,
+        },
+        {
+          id: 4,
+          country: "Japan",
+          city: "Tokyo",
+          region: "Asia Pacific",
+          flag: "🇯🇵",
+          lat: 35.6762,
+          lng: 139.6503,
+          dataCenterId: "nrt",
+          dataCenterOwner: "NTT Communications",
+          replicaNodes: 4,
+          apiBoundaryNodes: 2,
+          totalNodes: 38,
+          nodeProviders: 2,
+          subnets: 1,
+        },
+        {
+          id: 5,
+          country: "United Kingdom",
+          city: "London",
+          region: "Europe",
+          flag: "🇬🇧",
+          lat: 51.5074,
+          lng: -0.1278,
+          dataCenterId: "lhr",
+          dataCenterOwner: "Telehouse",
+          replicaNodes: 2,
+          apiBoundaryNodes: 1,
+          totalNodes: 25,
+          nodeProviders: 1,
+          subnets: 10,
+        },
+        {
+          id: 6,
+          country: "India",
+          city: "Indore",
+          region: "Asia",
+          flag: "🇮🇳",
+          lat: 22.7196,
+          lng: 75.8577,
+          dataCenterId: "idr",
+          dataCenterOwner: "Telehouse",
+          replicaNodes: 2,
+          apiBoundaryNodes: 1,
+          totalNodes: 25,
+          nodeProviders: 1,
+          subnets: 10,
+        },
+        {
+          id: 7,
+          country: "Pakistan",
+          city: "Lahore",
+          region: "Asia",
+          flag: "🇵🇰",
+          lat: 31.5204,
+          lng: 74.3587,
+          dataCenterId: "idr",
+          dataCenterOwner: "Telehouse",
+          replicaNodes: 2,
+          apiBoundaryNodes: 1,
+          totalNodes: 25,
+          nodeProviders: 1,
+          subnets: 10,
+        },
+      ];
+    </script>
+  </head>
+
+  <body>
+    <div id="myearth">
+      <div id="glow"></div>
+    </div>
+    <div
+      id="tooltip"
+      style="
+        position: absolute;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 6px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        display: none;
+        pointer-events: none;
+      "
+    ></div>
+  </body>
+</html>

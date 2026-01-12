@@ -1,5 +1,4 @@
 
-
 import { useState, useEffect, useRef } from "react";
 import {
   ArrowRight,
@@ -9,8 +8,10 @@ import {
   Activity,
   Database,
 } from "lucide-react";
+import useTheme from "@/store/ThemeSwitch";
 
 const HeroSection = () => {
+  const { theme } = useTheme();
   const [activeBlock, setActiveBlock] = useState(0);
   const [hashValue, setHashValue] = useState("0x7a4f...c2b9");
   const [verifications, setVerifications] = useState(10247832);
@@ -25,7 +26,7 @@ const HeroSection = () => {
     console.log('Navigate to authenticate');
   };
 
-  /* ---------------- HASH ---------------- */
+ // Hash Value Animation
   useEffect(() => {
     const interval = setInterval(() => {
       const hex = "0123456789abcdef";
@@ -38,7 +39,7 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
-  /* ---------------- COUNTERS ---------------- */
+ // Verifications and Nodes Animation
   useEffect(() => {
     const i = setInterval(
       () => setVerifications((p) => p + Math.floor(Math.random() * 50)),
@@ -60,7 +61,7 @@ const HeroSection = () => {
     return () => clearInterval(i);
   }, []);
 
-  /* ---------------- CANVAS PARTICLES ---------------- */
+  // Canvas Particles Animation
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -113,7 +114,7 @@ const HeroSection = () => {
     return () => cancelAnimationFrame(frame);
   }, []);
 
-  /* ---------------- SCROLL SWITCH ---------------- */
+  // Scroll Switch Effect
   useEffect(() => {
     const onScroll = () => {
       if (window.scrollY > 50) setShowIframe(false);
@@ -125,81 +126,110 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen pt-32 px-6 py-16 overflow-hidden z-10">
       <div
-        className="absolute inset-0 bg-[#295D16] z-0 transition-all duration-1000 ease-in-out"
+        className="absolute inset-0 bg-primary2 z-0 transition-all duration-1000 ease-in-out"
         style={{
           clipPath: !showIframe ? "circle(150% at 100% 100%)" : "circle(0% at 100% 100%)"
         }}
       />
 
-
       <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-       
-          {/* Left Content */}
-          <div className="flex flex-col space-y-6 text-center lg:text-left">
-            {/* Badge */}
-          <div 
-          className={`inline-flex items-center gap-2 px-4 py-2  border  rounded-full  text-sm font-medium w-fit mx-auto lg:mx-0 ${
-            showIframe ? "border-[#0c5d14]/30 text-[#14b857] bg-[#0c5d14]/10" : "border-[#000000] text-[#000000] bg-[#000000]/10"
-          }`}
-        >
+
+        {/* Left Content */}
+        <div className="flex flex-col space-y-6 text-center lg:text-left">
+
+          {/* Badge */}
+         <div
+              className={`inline-flex items-center gap-2 px-4 py-2 border rounded-full text-sm font-medium w-fit mx-auto lg:mx-0 ${
+                theme === 'light'
+                  ? showIframe 
+                    ? "border-primary2/30 text-primary2 bg-primary2/10"
+                    : "border-white/20 text-white bg-white/10"
+                  : showIframe
+                    ? "border-[#0c5d14]/30 text-[#14b857] bg-[#0c5d14]/10"
+                    : "border-[#000000] text-[#000000] bg-[#000000]/5"
+              }`}
+            >
               <Shield className="w-4 h-4" />
               <span>Blockchain Security</span>
-            </div>
-
-            {/* Heading */}
-            <div className="space-y-4">
-              <h1 style={{ fontFamily: "'Jost', sans-serif" }} className="text-4xl font-semibold sm:text-6xl md:text-6xl lg:text-7xl font-sans text-white leading-none">
-                PKI Chain
-              </h1>
-              <div className="h-1 w-24 bg-gradient-to-r from-[#0c5d14] to-[#14b857] mx-auto lg:mx-0"></div>
-            </div>
-
-            <p className="text-zinc-300 text-lg font-normal sm:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0">
-              Next-generation digital identity verification with quantum-resistant encryption and
-              <span className="text-[#14b857] font-semibold"> zero-knowledge proofs</span>.
-            </p>
-
-            {/* CTA */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
-              <button
-                className={`group px-8 py-4  rounded-lg font-bold transition-all duration-500 flex items-center justify-center gap-2 text-base shadow-lg shadow-[#126e84]/10 hover:cursor-pointer hover:shadow-xl hover:shadow-[#126e84]/10
-                 ${
-                 showIframe ? "bg-[#0c5d14] text-white" : "bg-zinc-300 text-black"
-                 } `}
-                onClick={handleGetStarted}
-              >
-                Get Started
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <button className={`px-8 py-4 bg-transparent border  text-zinc-300 rounded-lg font-bold cursor-pointer hover:text-white transition-all duration-300 text-base
-                ${ showIframe ? "border-zinc-700":"border-white" }`}>
-                Documentation
-              </button>
-            </div>
-
-            {/* Features */}
-            <div className="grid grid-cols-2 gap-3 pt-2 max-w-xl mx-auto lg:mx-0">
-              {[
-                { icon: Lock, text: 'AES-256 Encryption' },
-                { icon: Zap, text: '<100ms Latency' },
-                { icon: Database, text: 'Decentralized Storage' },
-                { icon: Activity, text: '99.99% Uptime' },
-              ].map((feature, i) => {
-                const Icon = feature.icon;
-                return (
-                  <div key={i} className="flex items-center gap-2 text-zinc-300 text-sm">
-                    <Icon className={`w-4 h-4  flex-shrink-0
-                      ${showIframe ? "text-[#14b857]":"text-zinc-300"}`} />
-                    <span>{feature.text}</span>
-                  </div>
-                );
-              })}
-            </div>
           </div>
+
+          {/* Heading */}
+          <div className="space-y-4">
+            <h1 style={{ fontFamily: "'Jost', sans-serif" }} className={`text-4xl font-semibold sm:text-6xl md:text-6xl lg:text-7xl font-sans text-foreground leading-none ${showIframe ===false ? 'text-white':''}`}>
+              PKI Chain
+            </h1>
+            <div className="h-1 w-24 bg-gradient-to-r from-primary2 to-primary2/10 mx-auto lg:mx-0"></div>
+          </div>
+
+          <p className={`text-muted-foreground text-lg font-normal sm:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 ${showIframe ? '':'text-white'}`}>
+            Next-generation digital identity verification with quantum-resistant encryption and
+            <span className={`font-semibold ${
+                theme === 'light'
+                  ? showIframe ? 'text-primary2' : 'text-white'
+                  : showIframe ? 'text-[#14b857]' : 'text-white'
+              }`}> zero-knowledge proofs
+            </span>
+          </p>
+
+          {/* CTA */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+            <button
+              className={`group px-8 py-4  rounded-lg font-bold transition-all duration-500 flex items-center justify-center gap-2 text-base shadow-lg shadow-[#126e84]/10 hover:cursor-pointer hover:shadow-xl hover:shadow-[#126e84]/10
+                ${
+                showIframe ? "bg-[#0c5d14] text-white" : "bg-zinc-300 text-black"
+                } `}
+              onClick={handleGetStarted}
+            >
+              Get Started
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+
+            <button className={`px-8 py-4 bg-transparent border rounded-lg font-bold cursor-pointer transition-all duration-300 text-base ${
+                theme === 'light'
+                  ? (showIframe 
+                      ? "border-zinc-300 text-black hover:text-black/80 hover:border-black" 
+                      : "border-black text-black hover:text-black/80 hover:border-black")
+                  : (showIframe 
+                      ? "border-zinc-700 text-zinc-300 hover:text-white" 
+                      : "border-white text-zinc-300 hover:text-white")
+              }`}>
+                Documentation
+            </button>
+          </div>
+          
+
+          {/* Features */}
+          <div className="grid grid-cols-2 gap-3 pt-2 max-w-xl mx-auto lg:mx-0">
+            {[
+              { icon: Lock, text: 'AES-256 Encryption' },
+              { icon: Zap, text: '<100ms Latency' },
+              { icon: Database, text: 'Decentralized Storage' },
+              { icon: Activity, text: '99.99% Uptime' },
+            ].map((feature, i) => {
+              const Icon = feature.icon;
+              return (
+               <div key={i} className="flex items-center gap-2 text-sm">
+                  <Icon className={`w-4 h-4 flex-shrink-0 ${
+                    theme === 'light'
+                      ? (showIframe ? "text-primary2" : "text-white")
+                      : (showIframe ? "text-[#14b857]" : "text-zinc-300")
+                  }`} />
+                  <span className={
+                    theme === 'light'
+                      ? (showIframe ? "text-muted-foreground" : "text-white")
+                      : (showIframe ? "text-zinc-300" : "text-zinc-300")
+                  }>
+                    {feature.text}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
 
         {/* RIGHT VISUAL */}
         <div className="relative hidden lg:flex items-center justify-center min-h-[600px] ">
+
           {/* Globe */}
           <div
             className={`absolute inset-0 flex items-center justify-center transition-all duration-700
@@ -219,12 +249,13 @@ const HeroSection = () => {
             ${showIframe ? "opacity-0 scale-105 pointer-events-none" : "opacity-100 scale-100"}`}
           >
             <div className="relative w-full max-w-lg h-[500px]">
+
               {/* Central Node */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <div className="relative">
-                  <div className="w-24 h-24 bg-white rounded-xl rotate-45 flex items-center justify-center shadow-xl shadow-[#0c5d14]/50">
-                    <div className="w-20 h-20 bg-black rounded-xl -rotate-45 flex items-center justify-center">
-                      <Shield className="w-10 h-10 text-[#ffffff]" />
+                  <div className="w-24 h-24 bg-background rounded-xl rotate-45 flex items-center justify-center shadow-xl shadow-primary2/50">
+                    <div className="w-20 h-20 bg-foreground rounded-xl -rotate-45 flex items-center justify-center">
+                      <Shield className="w-10 h-10 text-background" />
                     </div>
                   </div>
                   <div className="absolute inset-0 border-2 border-[#14b857] rounded-xl rotate-45 animate-ping"></div>
@@ -360,51 +391,58 @@ const HeroSection = () => {
               </svg>
 
               {/* Info Panels */}
-              <div className="absolute top-4 right-4 bg-black/90 boSponsersrder-[#0c5d14]/40 rounded-lg px-4 py-3 backdrop-blur">
+              <div className="absolute top-4 right-4 bg-background/90 boSponsersrder-primary2/40 rounded-lg px-4 py-3 backdrop-blur border border-primary2/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-2 h-2 bg-[#14b857] rounded-full animate-pulse"></div>
-                  <span className="text-white text-sm font-bold">Active</span>
+                  <div className="w-2 h-2 bg-primary2 rounded-full animate-pulse"></div>
+                  <span className="text-foreground text-sm font-bold">Active</span>
                 </div>
-                <div className="text-slate-400 text-xs">
-                  Nodes: <span className="text-[#14b857]">{networkNodes}</span>
+                <div className="text-muted-foreground text-xs">
+                  Nodes: <span className="text-primary2">{networkNodes}</span>
                 </div>
               </div>
 
-              <div className="absolute bottom-4 left-4 bg-black/90 border border-[#0c5d14]/40 rounded-lg px-4 py-3 backdrop-blur">
-                <div className="text-slate-400 text-xs mb-1">Block Hash</div>
-                <div className="text-[#14b857] text-xs font-mono">
+              <div className="absolute bottom-4 left-4 bg-background/90 border border-primary2/40 rounded-lg px-4 py-3 backdrop-blur">
+                <div className="text-muted-foreground text-xs mb-1">Block Hash</div>
+                <div className="text-primary2 text-xs font-mono">
                   {hashValue}
                 </div>
               </div>
-            </div>          
+            </div>
           </div>
-          
         </div>
-        
       </div>
+
       {/* Stats */}
       <div className="mt-0 grid grid-cols-3 gap-6 max-w-3xl mx-auto relative z-10">
         <div className="text-center">
-          <div className="text-3xl sm:text-4xl font-black text-white mb-1">99.99%</div>
-          <div className={`text-sm ${showIframe ? "text-zinc-400" : "text-zinc-300"}`}>Uptime</div>
+          <div className={`text-3xl sm:text-4xl font-black text-foreground mb-1 ${showIframe ? '':'text-white'}`}>99.99%</div>
+          <div className={`text-sm ${showIframe ? "text-muted-foreground" : "text-white"}`}>Uptime</div>
         </div>
         <div className="text-center">
-          <div className="text-3xl sm:text-4xl font-black text-white mb-1">{(verifications / 1000000).toFixed(1)}M+</div>
-          <div className={`text-sm ${showIframe ? "text-zinc-400" : "text-zinc-300"}`}>Verifications</div>
+          <div className={`text-3xl sm:text-4xl font-black text-foreground mb-1 ${showIframe ? '':'text-white'}`}>{(verifications / 1000000).toFixed(1)}M+</div>
+          <div className={`text-sm ${showIframe ? "text-muted-foreground" : "text-white"}`}>Verifications</div>
         </div>
         <div className="text-center">
-          <div className="text-3xl sm:text-4xl font-black text-white mb-1">256-bit</div>
-          <div className={`text-sm ${showIframe ? "text-zinc-400" : "text-zinc-300"}`}>Encryption</div>
+          <div className={`text-3xl sm:text-4xl font-black text-foreground mb-1 ${showIframe ? '':'text-white'}`}>256-bit</div>
+          <div className={`text-sm ${showIframe ? "text-muted-foreground" : "text-white"}`}>Encryption</div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-9 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className={`w-6 h-10 border-2 rounded-full flex justify-center ${showIframe ? "border-[#0c5d14]" : "border-white"}`}>
-          <div className={`w-1 h-3  rounded-full mt-2 ${showIframe ? "bg-[#0c5d14]" : "bg-white"}`}></div>
+        <div className={`w-6 h-10 border-2 rounded-full flex justify-center ${
+          theme === 'light'
+            ? (showIframe ? "border-primary2" : "border-foreground")
+            : (showIframe ? "border-[#0c5d14]" : "border-white")
+        }`}>
+          <div className={`w-1 h-3 rounded-full mt-2 ${
+            theme === 'light'
+              ? (showIframe ? "bg-primary2" : "bg-foreground")
+              : (showIframe ? "bg-[#0c5d14]" : "bg-white")
+          }`}></div>
         </div>
       </div>
-      
+
     </section>
   );
 };

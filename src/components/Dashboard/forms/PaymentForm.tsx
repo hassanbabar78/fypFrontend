@@ -1,4 +1,3 @@
-"use client"
 
 import type React from "react"
 
@@ -154,7 +153,7 @@ export default function PaymentForm({ planPrice, onSubmit, isLoading = false }: 
           <span className="text-sm text-muted-foreground">Amount to pay:</span>
           <span className="text-lg font-semibold">${(planPrice / 100).toFixed(2)}</span>
         </div>
-        <Button type="submit" className="w-full bg-[#09402D] hover:bg-[#073928]" disabled={isLoading}>
+        <Button type="submit" className="w-full bg-button hover:bg-button-hover" disabled={isLoading}>
           {isLoading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

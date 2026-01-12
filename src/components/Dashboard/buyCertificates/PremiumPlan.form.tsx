@@ -574,7 +574,7 @@ export default function EnterprisePlanForm() {
           <Button
             onClick={handleGenerateCsr}
             disabled={!isFormValid() || csrGenerated || loading}
-            className="w-full bg-[#09402D] hover:bg-[#073928]"
+            className="w-full bg-button hover:bg-button-hover"
           >
             {loading ? "Generating CSR..." : csrGenerated ? "CSR Already Generated" : "Generate CSR"}
           </Button>
@@ -583,7 +583,7 @@ export default function EnterprisePlanForm() {
             <Button
               onClick={handlePurchase}
               disabled={loading}
-              className="w-full bg-[#09402D] hover:bg-[#073928]"
+              className="w-full bg-button hover:bg-button-hover"
             >
               {loading ? "Submitting..." : "Purchase Certificate"}
             </Button>

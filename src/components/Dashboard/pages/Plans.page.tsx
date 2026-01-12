@@ -1,5 +1,4 @@
 
-"use client";
 
 import { useState, useEffect } from "react";
 import {
@@ -11,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, CheckCircle2, Info } from "lucide-react";
-import PlanUpgradeDialog from "@/components/Dashboard/dialogs/plan-upgrade-dialog";
+import PlanUpgradeDialog from "@/components/Dashboard/dialogs/PlanUpgrade.dialog";
 import PlanPurchaseDialog from "@/components/Dashboard/dialogs/PlanPurchase.dialog";
 import { PLANS_CONFIG, canUpgrade } from "@/lib/plans";
 import { authFetch } from "@/lib/auth-fetch";
@@ -173,7 +172,7 @@ export default function YourPlanSection() {
         return;
       }
 
-      // for paid plans: Redirect to Stripe Checkout
+      // for paid plans, Redirect to Stripe Checkout
       console.log("Initiating Stripe checkout for plan:", planType);
 
       const response = await authFetch(
@@ -250,7 +249,7 @@ export default function YourPlanSection() {
     <div className="space-y-6">
       <div>
         <h2 className="text-3xl font-bold mb-2">Your Plan</h2>
-        <p className="text-zinc-300">
+        <p className="text-muted-foreground">
           Manage your subscription and plan details
         </p>
       </div>
@@ -277,7 +276,7 @@ export default function YourPlanSection() {
                 <Info className="h-5 w-5" />
                 No Plan Selected
               </CardTitle>
-              <CardDescription className="text-zinc-300">
+              <CardDescription className="text-muted-foreground">
                 Please choose a plan to get started with SSL certificates
               </CardDescription>
             </CardHeader>
@@ -308,7 +307,7 @@ export default function YourPlanSection() {
                   {/* Details */}
                   <div className="pt-4 border-t border-border space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-zinc-300">Validity:</span>
+                      <span className="text-muted-foreground">Validity:</span>
                       <span className="font-semibold">
                         {planOption.minDuration} days
                       </span>
@@ -316,7 +315,7 @@ export default function YourPlanSection() {
                   </div>
 
                   <Button
-                    className="w-full mt-4 bg-[#09402D] hover:bg-[#073928]"
+                    className="w-full mt-4 bg-button hover:bg-button-hover"
                     onClick={() =>
                       handlePlanSelect(
                         key,
@@ -453,7 +452,7 @@ export default function YourPlanSection() {
               {canUpgradePlan ? (
                 <Button
                   onClick={() => setShowUpgradeDialog(true)}
-                  className="w-full bg-[#09402D] hover:bg-[#073928]"
+                  className="w-full bg-button hover:bg-button-hover"
                 >
                   Upgrade to {PLANS_CONFIG[getNextPlanType(planType)]?.name}
                 </Button>

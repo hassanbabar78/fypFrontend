@@ -361,7 +361,7 @@ export default function FreePlanForm() {
           <Button
             onClick={handleGenerateCsr}
             disabled={!isFormValid || csrGenerated || loading}
-            className="w-full bg-[#09402D] hover:bg-[#073928]"
+            className="w-full bg-button hover:bg-button-hover"
           >
             {loading
               ? "Generating CSR..."
@@ -374,7 +374,7 @@ export default function FreePlanForm() {
             <Button
               onClick={handlePurchase}
               disabled={loading}
-              className="w-full bg-[#09402D] hover:bg-[#073928]"
+              className="w-full bg-button hover:bg-button-hover"
             >
               {loading ? "Submitting..." : "Get Free SSL Certificate"}
             </Button>

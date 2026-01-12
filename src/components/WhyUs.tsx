@@ -1,14 +1,15 @@
-"use client"
 
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { CheckCircle, Cpu, Database, DollarSign, Eye, Lock, Network, Zap } from "lucide-react"
+import useTheme from "@/store/ThemeSwitch"
 
 gsap.registerPlugin(ScrollTrigger)
 
 const WhyUs = () => {
 
 
+  const { theme } = useTheme()
   const reasons = [
     {
       icon: <Network className="h-8 w-8" />,
@@ -54,46 +55,45 @@ const WhyUs = () => {
     },
   ]
 
- 
-
   return (
-    <section id="why-us" className="relative py-20 px-6 lg:px-8 bg-black overflow-hidden">
+    <section id="why-us" className="relative py-20 px-6 lg:px-8 bg-background overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
         <div
           className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: `linear-gradient(#0E5D16 1px, transparent 1px), linear-gradient(90deg, #0E5D16 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(hsl(var(--primary2)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary2)) 1px, transparent 1px)`,
             backgroundSize: "60px 60px",
           }}
         ></div>
 
-        <div className="absolute top-20 left-10 w-2 h-2 bg-[#0c5d14] rounded-full animate-float"></div>
+        <div className="absolute top-20 left-10 w-2 h-2 bg-primary2 rounded-full animate-float"></div>
         <div
-          className="absolute top-40 right-20 w-1 h-1 bg-[#0c5d14] rounded-full animate-float"
+          className="absolute top-40 right-20 w-1 h-1 bg-primary2 rounded-full animate-float"
           style={{ animationDelay: "1s" }}
         ></div>
         <div
-          className="absolute bottom-32 left-1/4 w-1.5 h-1.5 bg-[#0c5d14] rounded-full animate-float"
+          className="absolute bottom-32 left-1/4 w-1.5 h-1.5 bg-primary2 rounded-full animate-float"
           style={{ animationDelay: "2s" }}
         ></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
+
         {/* Header Section */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/30 mb-6">
-            <Cpu className="h-4 w-4 text-[#0c5d14]" />
-            <span className="text-sm font-semibold text-[#0c5d14]">THE ADVANTAGE</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary2/30 mb-6">
+            <Cpu className="h-4 w-4 text-primary2" />
+            <span className="text-sm font-semibold text-primary2">THE ADVANTAGE</span>
           </div>
 
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
             Why{" "}
-            <span className="text-transparent bg-clip-text bg-[#0c5d14]">
+            <span className="text-transparent bg-clip-text bg-primary2">
               PKIChain
             </span>
           </h2>
 
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Revolutionizing PKI with blockchain technology to deliver{" "}
             <span >unbreakable security</span> and{" "}
             <span >decentralized trust</span>.
@@ -101,69 +101,48 @@ const WhyUs = () => {
         </div>
 
         {/* Reasons Grid */}
-        <div  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {reasons.map((reason, index) => (
             <div
               key={index}
-              className="group relative p-8 rounded-xl border border-white/10 bg-linear-to-br from-white/10 to-black transition-all duration-500 cursor-pointer shadow-[0_0_30px_-5px_#126e84] shadow-[#126e84]/15
-              "
+               className={`group relative p-8 rounded-xl border transition-all duration-500 cursor-pointer ${
+                theme === 'light'
+                  ? 'border-border bg-card shadow-[0_0_30px_-5px_hsl(var(--primary-blue))] shadow-primary-blue/10'
+                  : 'border-white/10 bg-linear-to-br from-white/10 to-black shadow-[0_0_30px_-5px_#126e84] shadow-[#126e84]/5'
+              }`}
             >
               <div className="flex items-start gap-4 mb-4">
                 <div className="shrink-0">
-                  <div className="p-3 rounded-lg border border-[#126e84]/30 text-[#126e84] group-hover:border-[#126e84] group-hover:text-[#126e84]
-                  group-hover:shadow-[#126e84]/20 transition-all duration-500 ease-out group-hover:-translate-y-3 group-hover:translate-x-1 group-hover:rotate-8">
+                  <div className="p-3 rounded-lg border border-[#346F84]/30 text-[#346F84] group-hover:border-[#346F84] group-hover:text-[#346F84]
+                  group-hover:shadow-[#346F84]/20 transition-all duration-500 ease-out group-hover:-translate-y-3 group-hover:translate-x-1 group-hover:rotate-8">
                     {reason.icon}
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white mb-2 transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-foreground mb-2 transition-colors duration-300">
                     {reason.title}
                   </h3>
-                  <div className="inline-block px-3 py-1 rounded-full bg-[#126e84]/10 border border-[#126e84]/20">
-                    <span className="text-xs font-semibold text-[#126e84] flex items-center justify-center">{reason.highlight}</span>
+                  <div className="inline-block px-3 py-1 rounded-full bg-[#346F84]/10 border border-primary2/20">
+                    <span className="text-xs font-semibold text-[#346F84] flex items-center justify-center">{reason.highlight}</span>
                   </div>
                 </div>
               </div>
 
-              <p className="text-gray-400 leading-relaxed mb-6 text-sm">{reason.description}</p>
+              <p className="text-muted-foreground leading-relaxed mb-6 text-sm">{reason.description}</p>
 
-              <div className="flex items-center justify-between pt-4 border-t border-white/10 group-hover:border-[#126e84]/30 transition-colors duration-300">
-                <span className="text-xs text-gray-500 group-hover:text-[#126e84] transition-colors duration-300">
+              <div className="flex items-center justify-between pt-4 border-t border-border group-hover:border-[#346F84]/30 transition-colors duration-300">
+                <span className="text-xs text-muted-foreground group-hover:text-[#346F84] transition-colors duration-300">
                   Benefit #{index + 1}
                 </span>
                 <div className="flex items-center gap-1">
-                  <CheckCircle className="h-4 w-4 text-[#126e84] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <CheckCircle className="h-4 w-4 text-[#346F84] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
               </div>
 
-        
+
             </div>
           ))}
         </div>
-
-        {/* Bottom Stats */}
-
-        {/* <div
-          
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 pt-12 border-t border-white/10 max-w-4xl mx-auto"
-        >
-          <div className="text-center">
-            <div className="text-3xl font-bold text-[#0c5d14] mb-2">100%</div>
-            <div className="text-sm text-gray-400 font-medium">Uptime SLA</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-[#0c5d14] mb-2">256-bit</div>
-            <div className="text-sm text-gray-400 font-medium">Encryption</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-[#0c5d14] mb-2">50K+</div>
-            <div className="text-sm text-gray-400 font-medium">Domains Secured</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-[#0c5d14] mb-2">99.9%</div>
-            <div className="text-sm text-gray-400 font-medium">Accuracy</div>
-          </div>
-        </div> */}
       </div>
 
       <style>{`

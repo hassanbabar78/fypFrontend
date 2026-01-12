@@ -214,26 +214,26 @@ export default function CertificateDetailsDialog({
 
           {/* Action Buttons */}
           <div className="flex gap-2 pt-4">
-            <Button variant="outline" onClick={() => onOpenChange(false)} className="flex-1 bg-[#09402D] hover:bg-[#073928]">
+            <Button variant="outline" onClick={() => onOpenChange(false)} className="flex-1 ">
               Close
             </Button>
             
             {certificate.status === "issued" && (
-              <Button onClick={handleDownloadCertificate} className="flex-1 bg-[#09402D] hover:bg-[#073928]">
+              <Button onClick={handleDownloadCertificate} className="flex-1 bg-button hover:bg-button-hover">
                 Download Certificate
               </Button>
             )}
             
             {!["issued", "cancelled"].includes(certificate.status) && (
               <>
-                <Button className="bg-[#09402D] hover:bg-[#073928]"
+                <Button className=""
                   variant="outline" 
                   onClick={handleRefreshStatus}
                   disabled={certificate.status === "draft"}
                 >
                   Refresh
                 </Button>
-                <Button  className="bg-[#09402D] hover:bg-[#073928]"
+                <Button  className=""
                   variant="destructive" 
                   onClick={handleCancelCertificate}
                 >

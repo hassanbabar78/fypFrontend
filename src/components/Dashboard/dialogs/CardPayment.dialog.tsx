@@ -206,10 +206,10 @@ export default function CardPaymentDialog({
           </div>
 
           <div className="flex gap-2 pt-4">
-            <Button variant="outline" onClick={() => onOpenChange(false)} className="flex-1 bg-[#09402D] hover:bg-[#073928]" disabled={isProcessing}>
+            <Button variant="outline" onClick={() => onOpenChange(false)} className="flex-1 bg-button hover:bg-button-hover" disabled={isProcessing}>
               Cancel
             </Button>
-            <Button onClick={handleSubmit} className="flex-1 bg-[#09402D] hover:bg-[#073928]" disabled={isProcessing}>
+            <Button onClick={handleSubmit} className="flex-1 bg-button hover:bg-button-hover" disabled={isProcessing}>
               {isProcessing ? "Processing..." : "Pay Now"}
             </Button>
           </div>

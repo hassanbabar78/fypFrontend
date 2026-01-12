@@ -1,4 +1,4 @@
-"use client"
+
 
 import type React from "react"
 
@@ -32,6 +32,7 @@ const Authenticate = () => {
       ...formData,
       [e.target.name]: e.target.value,
     })
+
     // Clear error when user starts typing
     if (error) setError("")
   }
@@ -64,7 +65,7 @@ const Authenticate = () => {
     e.preventDefault()
     console.log("Form submitted:", formData)
 
-    // Validate form
+    // Validate Form
     if (!validateForm()) {
       return
     }
@@ -74,7 +75,7 @@ const Authenticate = () => {
 
     try {
       let response
-      const apiUrl = 'http://localhost:3000/api/v1/auth' // Update this to your actual API URL
+      const apiUrl = 'http://localhost:3000/api/v1/auth' 
 
       if (isLogin) {
         response = await axios.post(`${apiUrl}/login`, {
@@ -92,14 +93,13 @@ const Authenticate = () => {
       if (response.data.success) {
         console.log(isLogin ? "Login successful:" : "Register successful:", response.data)
 
-        // Save token and user info in localStorage
+        // Save token and user info into localStorage
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('user', JSON.stringify(response.data.user))
 
-        // Show success message
-        setError("") // Clear any previous errors
-        
-        // Redirect to dashboard after a brief delay
+        setError("") 
+
+        // Redirect to dashboard 
         setTimeout(() => {
           navigate('/dashboard')
         }, 1000)
@@ -109,7 +109,7 @@ const Authenticate = () => {
       }
     } catch (error: any) {
       console.error("Error submitting form:", error.response?.data || error.message)
-      
+
       // Handle different types of errors
       if (error.response?.data?.error) {
         setError(error.response.data.error)
@@ -125,7 +125,7 @@ const Authenticate = () => {
     }
   }
 
-  // Reset form when switching between login/register
+  // Reset Form when switching between login/register
   useEffect(() => {
     setFormData({
       name: "",
@@ -186,11 +186,13 @@ const Authenticate = () => {
   }, [isLogin])
 
   return (
-    <div className="min-h-screen bg-black flex">
-      {/* Left Column - Image/Graphics */}
+    <div className="min-h-screen bg-background flex">
+
+      {/* Left Column , Image/Graphics */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+
         {/* Background Pattern */}
-        <div ref={orbsRef} className="absolute inset-0 bg-linear-to-br from-[#0c5d14]/20 to-black">
+        <div ref={orbsRef} className="absolute inset-0 bg-linear-to-br from-primary2/20 to-background">
           <div
             className="absolute inset-0 opacity-10"
             style={{
@@ -199,7 +201,7 @@ const Authenticate = () => {
             }}
           ></div>
 
-          <div className="orb-auth-1 absolute top-20 left-20 w-40 h-40 bg-[#0c5d14]/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="orb-auth-1 absolute top-20 left-20 w-40 h-40 bg-primary2/10 rounded-full blur-3xl animate-pulse"></div>
           <div
             className="orb-auth-2 absolute bottom-20 right-20 w-40 h-40 bg-green-500/10 rounded-full blur-3xl animate-pulse"
             style={{ animationDelay: "1s" }}
@@ -213,28 +215,28 @@ const Authenticate = () => {
         >
           <div className="max-w-md">
             <div data-animate>
-              <Shield className="h-16 w-16 text-[#0c5d14] mx-auto mb-6" />
+              <Shield className="h-16 w-16 text-primary2 mx-auto mb-6" />
             </div>
-            <h2 data-animate className="text-4xl font-bold text-white mb-4">
+            <h2 data-animate className="text-4xl font-bold text-foreground mb-4">
               Secure Access to Your Digital Identity
             </h2>
-            <p data-animate className="text-gray-300 text-lg leading-relaxed">
+            <p data-animate className="text-muted-foreground text-lg leading-relaxed">
               Join thousands of organizations trusting PKIChain for blockchain-powered domain validation and secure
               certificate management.
             </p>
 
             {/* Features List */}
             <div data-animate className="mt-8 space-y-4 text-left">
-              <div className="flex items-center gap-3 text-gray-300 hover:text-[#0c5d14] transition-colors duration-300">
-                <div className="w-2 h-2 bg-[#0c5d14] rounded-full"></div>
+              <div className="flex items-center gap-3 text-muted-foreground hover:text-primary2 transition-colors duration-300">
+                <div className="w-2 h-2 bg-primary2 rounded-full"></div>
                 <span>Blockchain-powered security</span>
               </div>
-              <div className="flex items-center gap-3 text-gray-300 hover:text-[#0c5d14] transition-colors duration-300">
-                <div className="w-2 h-2 bg-[#0c5d14] rounded-full"></div>
+              <div className="flex items-center gap-3 text-muted-foreground hover:text-primary2 transition-colors duration-300">
+                <div className="w-2 h-2 bg-primary2 rounded-full"></div>
                 <span>Military-grade encryption</span>
               </div>
-              <div className="flex items-center gap-3 text-gray-300 hover:text-[#0c5d14] transition-colors duration-300">
-                <div className="w-2 h-2 bg-[#0c5d14] rounded-full"></div>
+              <div className="flex items-center gap-3 text-muted-foreground hover:text-primary2 transition-colors duration-300">
+                <div className="w-2 h-2 bg-primary2 rounded-full"></div>
                 <span>24/7 Priority support</span>
               </div>
             </div>
@@ -242,39 +244,38 @@ const Authenticate = () => {
         </div>
       </div>
 
-      {/* Right Column - Authentication Form */}
+      {/* Right Column , Authentication Form */}
       <div ref={formRef} className="w-full lg:w-1/2 flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
+          
           {/* Logo */}
           <div className="text-center mb-8">
             <img src="/img/logo.png" alt="PKIChain" className="h-12 w-auto mx-auto mb-6" />
-            <h1 className="text-3xl font-bold text-white mb-2">{isLogin ? "Welcome Back" : "Create Account"}</h1>
-            <p className="text-gray-400">
+            <h1 className="text-3xl font-bold text-foreground mb-2">{isLogin ? "Welcome Back" : "Create Account"}</h1>
+            <p className="text-muted-foreground">
               {isLogin ? "Sign in to your PKIChain account" : "Join PKIChain to secure your digital identity"}
             </p>
           </div>
 
           {/* Toggle Switch */}
-          <div className="flex bg-white/5 rounded-xl p-1 mb-8 border border-gray-800/5">
+          <div className="flex bg-secondary rounded-xl p-1 mb-8 border border-border">
             <button
               onClick={() => setIsLogin(true)}
               disabled={isLoading}
-              className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold transition-all duration-300 ${
-                isLogin 
-                  ? "bg-[#0c5d14] text-white shadow-lg" 
-                  : "text-gray-400 hover:text-white disabled:hover:text-gray-400"
-              } disabled:opacity-50 disabled:cursor-not-allowed`}
+              className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold transition-all duration-300 ${isLogin
+                  ? "bg-primary2 text-primary2-foreground shadow-lg"
+                  : "text-muted-foreground hover:text-foreground disabled:hover:text-muted-foreground"
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
             >
               Sign In
             </button>
             <button
               onClick={() => setIsLogin(false)}
               disabled={isLoading}
-              className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold transition-all duration-300 ${
-                !isLogin 
-                  ? "bg-[#0c5d14] text-white shadow-lg" 
-                  : "text-gray-400 hover:text-white disabled:hover:text-gray-400"
-              } disabled:opacity-50 disabled:cursor-not-allowed`}
+              className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold transition-all duration-300 ${!isLogin
+                  ? "bg-primary2 text-primary2-foreground shadow-lg"
+                  : "text-muted-foreground hover:text-foreground disabled:hover:text-muted-foreground"
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
             >
               Sign Up
             </button>
@@ -282,8 +283,8 @@ const Authenticate = () => {
 
           {/* Error Message */}
           {error && (
-            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
-              <p className="text-red-400 text-sm text-center">{error}</p>
+            <div className="mb-6 p-4 bg-destructive/10 border border-destructive/20 rounded-xl">
+              <p className="text-destructive text-sm text-center">{error}</p>
             </div>
           )}
 
@@ -291,11 +292,11 @@ const Authenticate = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             {!isLogin && (
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                <label htmlFor="name" className="block text-sm font-medium text-muted-foreground mb-2">
                   Full Name
                 </label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                   <input
                     type="text"
                     id="name"
@@ -304,7 +305,7 @@ const Authenticate = () => {
                     value={formData.name}
                     onChange={handleChange}
                     disabled={isLoading}
-                    className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-[#0c5d14] focus:ring-1 focus:ring-[#0c5d14] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full pl-10 pr-4 py-3 bg-secondary border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary2 focus:ring-1 focus:ring-primary2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Enter your full name"
                   />
                 </div>
@@ -312,11 +313,11 @@ const Authenticate = () => {
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-muted-foreground mb-2">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <input
                   type="email"
                   id="email"
@@ -325,18 +326,18 @@ const Authenticate = () => {
                   value={formData.email}
                   onChange={handleChange}
                   disabled={isLoading}
-                  className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-[#0c5d14] focus:ring-1 focus:ring-[#0c5d14] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full pl-10 pr-4 py-3 bg-secondary border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary2 focus:ring-1 focus:ring-primary2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="Enter your email"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-muted-foreground mb-2">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <input
                   type={showPassword ? "text" : "password"}
                   id="password"
@@ -345,14 +346,14 @@ const Authenticate = () => {
                   value={formData.password}
                   onChange={handleChange}
                   disabled={isLoading}
-                  className="w-full pl-10 pr-12 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-[#0c5d14] focus:ring-1 focus:ring-[#0c5d14] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full pl-10 pr-12 py-3 bg-secondary border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary2 focus:ring-1 focus:ring-primary2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="Enter your password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   disabled={isLoading}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
@@ -361,11 +362,11 @@ const Authenticate = () => {
 
             {!isLogin && (
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-2">
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-muted-foreground mb-2">
                   Confirm Password
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                   <input
                     type={showPassword ? "text" : "password"}
                     id="confirmPassword"
@@ -374,7 +375,7 @@ const Authenticate = () => {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     disabled={isLoading}
-                    className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-[#0c5d14] focus:ring-1 focus:ring-[#0c5d14] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full pl-10 pr-4 py-3 bg-secondary border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary2 focus:ring-1 focus:ring-primary2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Confirm your password"
                   />
                 </div>
@@ -387,11 +388,11 @@ const Authenticate = () => {
                   <input
                     type="checkbox"
                     disabled={isLoading}
-                    className="w-4 h-4 text-[#0c5d14] bg-gray-800 border-white/10 rounded focus:ring-[#0c5d14] focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-4 h-4 text-primary2 bg-secondary border-border rounded focus:ring-primary2 focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   />
-                  <span className="ml-2 text-sm text-gray-300">Remember me</span>
+                  <span className="ml-2 text-sm text-muted-foreground">Remember me</span>
                 </label>
-                <a href="#" className="text-sm text-[#0c5d14] hover:text-[#0c5d14] transition-colors duration-300">
+                <a href="#" className="text-sm text-primary2 hover:text-primary2 transition-colors duration-300">
                   Forgot password?
                 </a>
               </div>
@@ -400,7 +401,7 @@ const Authenticate = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-4 bg-[#0c5d14] text-white rounded-xl font-semibold shadow-lg hover:shadow-[#0c5d14]/25 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-lg"
+              className="w-full py-4 bg-primary2 text-primary2-foreground rounded-xl font-semibold shadow-lg hover:shadow-primary2/25 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-lg"
             >
               {isLoading ? (
                 <>
@@ -416,13 +417,13 @@ const Authenticate = () => {
             </button>
 
             {isLogin && (
-              <p className="text-center text-gray-400 text-sm">
+              <p className="text-center text-muted-foreground text-sm">
                 Don't have an account?{" "}
                 <button
                   type="button"
                   onClick={() => setIsLogin(false)}
                   disabled={isLoading}
-                  className="text-[#0c5d14] hover:text-[#0c5d14] font-semibold transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="text-primary2 hover:text-primary2 font-semibold transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Sign up
                 </button>
@@ -431,14 +432,14 @@ const Authenticate = () => {
           </form>
 
           {/* Divider */}
-          <div className="mt-8 pt-6 border-t border-white/10">
-            <p className="text-center text-gray-500 text-sm">
+          <div className="mt-8 pt-6 border-t border-border">
+            <p className="text-center text-muted-foreground text-sm">
               By continuing, you agree to our{" "}
-              <a href="#" className="text-[#0c5d14] hover:text-[#0c5d14] transition-colors duration-300">
+              <a href="#" className="text-primary2 hover:text-primary2 transition-colors duration-300">
                 Terms of Service
               </a>{" "}
               and{" "}
-              <a href="#" className="text-[#0c5d14] hover:text-[#0c5d14] transition-colors duration-300">
+              <a href="#" className="text-primary2 hover:text-primary2 transition-colors duration-300">
                 Privacy Policy
               </a>
             </p>

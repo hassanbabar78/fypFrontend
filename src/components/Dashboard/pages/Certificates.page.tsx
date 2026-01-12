@@ -62,9 +62,10 @@ export default function CertificatesSection() {
       const result = await response.json()
 
       if (result.success && result.data.statusChanged) {
+
         // Update the certificate in the local state
-        setCertificates(prev => prev.map(cert => 
-          cert._id === certificateId 
+        setCertificates(prev => prev.map(cert =>
+          cert._id === certificateId
             ? { ...cert, status: result.data.status, expiresAt: result.data.expiresAt, issuedDate: result.data.issuedDate }
             : cert
         ))
@@ -85,9 +86,10 @@ export default function CertificatesSection() {
       const result = await response.json()
 
       if (result.success) {
+        
         // Remove cancelled certificate from the list or update its status
-        setCertificates(prev => prev.map(cert => 
-          cert._id === certificateId 
+        setCertificates(prev => prev.map(cert =>
+          cert._id === certificateId
             ? { ...cert, status: "cancelled" }
             : cert
         ))
@@ -193,9 +195,9 @@ export default function CertificatesSection() {
           <h2 className="text-3xl font-bold mb-2">Certificates</h2>
           <p className="text-muted-foreground">View and manage your purchased certificates</p>
         </div>
-        <Button 
-          onClick={handleRefresh} 
-          variant="outline" 
+        <Button
+          onClick={handleRefresh}
+          variant="outline"
           disabled={refreshing}
         >
           {refreshing ? "Refreshing..." : "Refresh"}
@@ -230,9 +232,9 @@ export default function CertificatesSection() {
               </TableHeader>
               <TableBody>
                 {certificates.map((cert) => (
-                  <TableRow 
-                    key={cert._id} 
-                    className="cursor-pointer hover:none border-border table-cell-hover" 
+                  <TableRow
+                    key={cert._id}
+                    className="cursor-pointer hover:none border-border table-cell-hover"
                     onClick={() => handleRowClick(cert)}
                   >
                     <TableCell className="font-medium">
@@ -281,7 +283,7 @@ export default function CertificatesSection() {
           ) : (
             <div className="text-center py-8">
               <p className="text-muted-foreground mb-4">No certificates found</p>
-              <Button className="bg-[#09402D] hover:bg-[#073928]" onClick={() => window.location.href = "/dashboard"}>
+              <Button className="bg-button hover:bg-button-hover" onClick={() => window.location.href = "/dashboard"}>
                 Get Your First Certificate
               </Button>
             </div>

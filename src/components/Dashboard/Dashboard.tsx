@@ -33,8 +33,8 @@ export default function DashboardPage() {
 
           {/* Logo and Dashboard Text */}
           <div className="flex items-center gap-3">
-            <div className="relative w-15 h-15 rounded-full overflow-hidden bg-black flex items-center justify-center">
-               <img src="/img/logo.png" alt="Logo" className="w-32 h-8 object-contain" />
+            <div className="relative w-15 h-15 rounded-full overflow-hidden bg-secondary flex items-center justify-center">
+              <img src="/img/logo.png" alt="Logo" className="w-32 h-8 object-contain" />
             </div>
             <h1 className="text-2xl font-semibold ml-3">Dashboard</h1>
           </div>
@@ -42,7 +42,8 @@ export default function DashboardPage() {
           {/* Desktop Logout Button */}
           <div className="hidden md:flex items-center mr-3">
             <Button
-              className="text-white bg-red-500 hover:shadow-[0_0_10px_rgba(239,68,68,0.7)] hover:bg-red-600 hover:scale-105 transition-all duration-300"
+              variant="destructive"
+              className="hover:scale-105 transition-all duration-300"
               onClick={handleLogout}
             >
               <LogOut className="h-4 w-4 mr-2" />
@@ -97,14 +98,14 @@ export default function DashboardPage() {
         {/* Sidebar Navigation */}
         <aside className="hidden md:flex md:w-64 border-r border-border flex-col bg-card min-h-[calc(100vh-73px)]">
           <div className="p-4 border-b border-border">
-            <h2 className="text-sm font-medium text-zinc-300">Navigation</h2>
+            <h2 className="text-sm font-medium text-muted-foreground">Navigation</h2>
           </div>
           <nav className="flex flex-col gap-1 p-3">
             {navItems.map((item) => (
               <Button
                 key={item.id}
                 variant={currentSection === item.id ? "default" : "ghost"}
-                className={`justify-start h-13 px-3 text-[1rem] ${currentSection === item.id ? 'bg-[#09402D] hover:bg-[#073928]' : 'hover:bg-accent'}`}
+                className={`justify-start h-13 px-3 text-[1rem] ${currentSection === item.id ? 'bg-button hover:bg-button-hover text-primary-foreground ' : 'hover:bg-accent hover:text-accent-foreground'}`}
                 onClick={() => setCurrentSection(item.id as any)}
               >
                 <span className="mr-3">{item.icon}</span>

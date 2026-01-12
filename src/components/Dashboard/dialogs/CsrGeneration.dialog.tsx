@@ -108,7 +108,7 @@ export default function CsrGenerationDialog({
               <Button variant="outline" onClick={() => onOpenChange(false)} className="flex-1">
                 Cancel
               </Button>
-              <Button onClick={handleConfirm} className="flex-1 bg-[#09402D] hover:bg-[#073928]">
+              <Button onClick={handleConfirm} className="flex-1 bg-button hover:bg-button-hover">
                 Generate
               </Button>
             </div>
@@ -141,7 +141,7 @@ export default function CsrGenerationDialog({
               <code className="text-xs break-all">-----END CERTIFICATE REQUEST-----</code>
             </div>
 
-            <Button onClick={handleDone} className="w-full bg-[#09402D] hover:bg-[#073928]">
+            <Button onClick={handleDone} className="w-full bg-button hover:bg-button-hover">
               Continue
             </Button>
           </div>

@@ -71,7 +71,7 @@ export default function PurchaseConfirmDialog({
             <Button
               onClick={onConfirm}
               disabled={loading}
-              className="bg-[#09402D] hover:bg-[#073928]"
+              className="bg-button hover:bg-button-hover"
             >
               {loading ? "Submitting..." : "Get Free Certificate"}
             </Button>

@@ -26,12 +26,13 @@ const SponsorsMarquee: React.FC<SponsorsMarqueeProps> = ({
   pauseOnHover = true,
   pauseOnClick = false,
   gradient = false,
-  gradientColor = '#ffffff',
+  gradientColor = 'hsl(var(--background))',
   gradientWidth = '5rem',
   className = '',
 }) => {
   return (
     <div className={`w-full flex justify-center ${className}`}>
+      
       {/* 75% width container */}
       <div className="w-full max-w-[75%]">
         <div className="py-4">
@@ -47,7 +48,7 @@ const SponsorsMarquee: React.FC<SponsorsMarqueeProps> = ({
             {sponsors.map((sponsor) => (
               <div
                 key={sponsor.id}
-                className="mx-4 flex items-center space-x-3 px-4 py-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
+                className="mx-4 flex items-center space-x-3 px-4 py-2 bg-card border border-border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
               >
                 {sponsor.logoUrl ? (
                   <img
@@ -56,13 +57,13 @@ const SponsorsMarquee: React.FC<SponsorsMarqueeProps> = ({
                     className="h-8 w-auto object-contain"
                   />
                 ) : (
-                  <div className="h-8 w-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">
+                  <div className="h-8 w-8 bg-gradient-to-r from-primary to-primary/60 rounded-full flex items-center justify-center">
+                    <span className="text-primary-foreground font-bold text-sm">
                       {sponsor.name.charAt(0)}
                     </span>
                   </div>
                 )}
-                <span className="text-gray-800 font-medium text-lg whitespace-nowrap">
+                <span className="text-foreground font-medium text-lg whitespace-nowrap">
                   {sponsor.name}
                 </span>
               </div>

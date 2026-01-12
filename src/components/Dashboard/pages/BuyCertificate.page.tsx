@@ -1,5 +1,4 @@
 
-"use client"
 
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -194,7 +193,7 @@ export default function BuyCertificateSection() {
                 >
                   {/* Current Plan Badge */}
                   {isCurrentPlan && (
-                    <div className="absolute -top-2 -right-2 bg-[#0e4e37] text-primary-foreground text-xs px-2 py-1 rounded-full">
+                    <div className="absolute -top-2 -right-2 bg-button text-primary-foreground text-xs px-2 py-1 rounded-full">
                       Current
                     </div>
                   )}

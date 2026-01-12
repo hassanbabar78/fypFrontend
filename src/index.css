@@ -12,6 +12,10 @@
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-primary2: var(--primary2);
+  --color-primary2-foreground: var(--primary-foreground); 
+  --color-primary-blue: var(--primary-blue);
+  --color-primary-blue-foreground: var(--primary-blue-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
@@ -40,22 +44,26 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-button: var(--button-color);
+  --color-button-hover: var(--button-hover-color);
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: oklch(0.98 0 0);
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.141 0.005 285.823);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary: oklch(0.21 0.006 285.885);
+  --primary: #1a73e8;
+  --primary2: #285B15;
+  --primary-blue: #346F84;
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.967 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
   --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
+  --muted-foreground: #0c0b0b;;
   --accent: oklch(0.967 0.001 286.375);
   --accent-foreground: oklch(0.21 0.006 285.885);
   --destructive: oklch(0.577 0.245 27.325);
@@ -75,28 +83,35 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.705 0.015 286.067);
+  --button-color: #2f6f86; 
+  --button-hover-color: #1c5367; 
+  --border: #bab2b2;
 }
 
 
- .dark {
-  --background: #0a0a0a;         
-  --foreground: #ffffff;          
-  --card: #151515;   
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --card: #151515;
   --card-foreground: #ffffff;
   --primary: rgb(22, 171, 121); 
-  --dark-primary: 09402D;   
+  --primary2: #285B15;
+  --primary-blue: #346F84;
+  --button-color: #09402D;
+  --button-hover-color: #073928;
   --popover: #151515;
   --popover-foreground: #ffffff;
-  --secondary: #262626;
+  --secondary: rgba(255, 255, 255, 0.05);
+  --popup: rgba(255, 255, 255, 0.05);
   --secondary-foreground: #ffffff;
   --muted: #262626;
   --muted-foreground: #a3a3a3;
   --accent: #262626;
   --accent-foreground: #ffffff;
-  --destructive: #ef4444;
+  --destructive: #f70f0f;
   --border: #404040;
   --input: #404040;
-  --ring: #10b981;               
+  --ring: #10b981;
   /* Chart colors */
   --chart-1: #10b981;
   --chart-2: #059669;
@@ -118,16 +133,19 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
-    background-color: black;
-    color: white;
+    @apply bg-background text-foreground;
   }
 }
 
 @keyframes float-slow {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-12px);
   }
@@ -137,10 +155,11 @@
   animation: float-slow 5s ease-in-out infinite;
 }
 
- /* Certificate table green shadow */
+/* Certificate table green shadow */
 .shadow-green {
   box-shadow: 0 2px 5px rgba(34, 197, 94, 0.2);
 }
+
 /* Table cell hover effect with inner green shadow */
 .table-cell-hover {
   transition: all 0.2s ease-in-out;
@@ -151,6 +170,7 @@
   box-shadow: inset 0px 50px 9px rgba(34, 108, 84, 0.08);
   background-color: rgba(5, 150, 105, 0.015);
 }
+
 /* Custom loader animation */
 @keyframes spin {
   to {
@@ -172,5 +192,13 @@
 
 /* Radio buttons with always-white border */
 .radio-white-always [data-state] {
-  border-color: rgba(203, 195, 195, 0.9) !important; /* 90% opacity white */
+  border-color: rgba(203, 195, 195, 0.9) !important;
 }
+
+/* Ensure select dropdown matches theme */
+select option {
+  background-color: var(--card);
+  color: var(--foreground);
+}
+
+

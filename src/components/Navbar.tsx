@@ -115,14 +115,14 @@ export default function Navbar() {
         <div className="flex lg:hidden">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-foreground bg-button hover:bg-button-hover transition-colors duration-200">
+              <Button variant="ghost" size="icon" className="text-foreground bg-button hover:bg-button-hover transition-colors duration-300">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Open main menu</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-full sm:max-w-sm bg-background/95 backdrop-blur-xl border-l border-border">
               <div className="flex flex-col h-full pt-6">
-                <div className="flex items-center justify-between px-4">
+                {/* <div className="flex items-center justify-between px-4">
                   <a href="/" className="p-1.5" onClick={handleLogoClick}>
                     <img src="/img/logo.png" alt="Logo" className="h-8" />
                   </a>
@@ -130,17 +130,18 @@ export default function Navbar() {
                     <X className="h-5 w-5" />
                     <span className="sr-only">Close menu</span>
                   </Button>
-                </div>
+                </div> */}
 
                 <div className="flex flex-col space-y-2 mt-8 px-5">
                   {navigation.map((item) => (
                     <a
                       key={item.name}
                       href={item.href}
-                      className="text-2xl font-medium text-foreground hover:text-primary py-3 px-4 rounded-xl hover:bg-secondary/10 transition-all duration-200"
+                      className="text-lg font-medium text-foreground hover:text-primary py-3 px-4 rounded-xl hover:bg-secondary/10 transition-all duration-200"
                       onClick={(e) => handleNavClick(e, item.href)}
                     >
                       {item.name}
+                      <span className="absolute bottom-2 left-4 w-0 h-[1.5px] bg-primary2 group-hover:w-[calc(100%-2rem)] transition-all duration-300"></span>
                     </a>
                   ))}
                 </div>

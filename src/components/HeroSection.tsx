@@ -141,12 +141,12 @@ const HeroSection = () => {
          <div
               className={`inline-flex items-center gap-2 px-4 py-2 border rounded-full text-sm font-medium w-fit mx-auto lg:mx-0 ${
                 theme === 'light'
-                  ? showIframe 
+                  ? (showIframe 
                     ? "border-primary2/30 text-primary2 bg-primary2/10"
-                    : "border-white/20 text-white bg-white/10"
-                  : showIframe
+                    : "border-white/20 text-white bg-white/10")
+                  : (showIframe
                     ? "border-[#0c5d14]/30 text-[#14b857] bg-[#0c5d14]/10"
-                    : "border-[#000000] text-[#000000] bg-[#000000]/5"
+                    : "border-[#000000] text-[#000000] bg-[#000000]/5")
               }`}
             >
               <Shield className="w-4 h-4" />
@@ -227,7 +227,7 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* RIGHT VISUAL */}
+        {/* Right Visual */}
         <div className="relative hidden lg:flex items-center justify-center min-h-[600px] ">
 
           {/* Globe */}
@@ -413,17 +413,17 @@ const HeroSection = () => {
       </div>
 
       {/* Stats */}
-      <div className="mt-0 grid grid-cols-3 gap-6 max-w-3xl mx-auto relative z-10">
+      <div className="mt-3 grid grid-cols-3 gap-6 max-w-3xl mx-auto relative z-10">
         <div className="text-center">
-          <div className={`text-3xl sm:text-4xl font-black text-foreground mb-1 ${showIframe ? '':'text-white'}`}>99.99%</div>
+          <div className={`text-2xl sm:text-4xl font-black text-foreground mb-1 ${showIframe ? '':'text-white'}`}>99.99%</div>
           <div className={`text-sm ${showIframe ? "text-muted-foreground" : "text-white"}`}>Uptime</div>
         </div>
         <div className="text-center">
-          <div className={`text-3xl sm:text-4xl font-black text-foreground mb-1 ${showIframe ? '':'text-white'}`}>{(verifications / 1000000).toFixed(1)}M+</div>
+          <div className={`text-2xl sm:text-4xl font-black text-foreground mb-1 ${showIframe ? '':'text-white'}`}>{(verifications / 1000000).toFixed(1)}M+</div>
           <div className={`text-sm ${showIframe ? "text-muted-foreground" : "text-white"}`}>Verifications</div>
         </div>
         <div className="text-center">
-          <div className={`text-3xl sm:text-4xl font-black text-foreground mb-1 ${showIframe ? '':'text-white'}`}>256-bit</div>
+          <div className={`text-2xl sm:text-4xl font-black text-foreground mb-1 ${showIframe ? '':'text-white'}`}>256-bit</div>
           <div className={`text-sm ${showIframe ? "text-muted-foreground" : "text-white"}`}>Encryption</div>
         </div>
       </div>

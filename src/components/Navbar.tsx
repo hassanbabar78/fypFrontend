@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu} from "lucide-react";
 
 const navigation = [
   { name: "Home", href: "#hero-section" },
